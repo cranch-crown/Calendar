@@ -11,11 +11,25 @@
 |
 */
 
+
 Route::get('/', 'CalendarController@index');
+
+Route::post('/make-schedule', 'CalendarController@make_schedule');
+
+Route::post('/save-schedule', 'CalendarController@save_schedule');
+
+Route::get('/register', 'CalendarController@register');
+Route::get('/login', 'CalendarController@login');
+
+Route::get('/welcome', 'CalendarController@welcome');
+
+/*Route::post('');*/
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+/*Route::get('/home', 'HomeController@index')->name('home');*/
+
+
 
 /*
 ログイン直後

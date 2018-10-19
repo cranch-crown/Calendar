@@ -3,30 +3,29 @@
 
 <link rel="stylesheet" type="text/css" href="{{ asset('css/monthly.css') }}">
 
-<div class="container">
-  <table >
-    <thead>
-      <tr>
-        <th>Mon</th>
-        <th>Tue</th>
-        <th>Wed</th>
-        <th>Thu</th>
-        <th>Fri</th>
-        <th>Sat</th>
-        <th>Sun</th>
-      </tr>
-    </thead>
+<div class="calendar">
+  <dib class="week">
+    <div class="day">
+      1
+    </div>
+    <div class="day">
+      2
+    </div>
+    <div class="day">
+      3
+    </div>
+    <div class="day">
+      4
+    </div>
+    <div class="day">
+      5
+    </div>
+    <div class="day">
+      6
+    </div>
+    <div class="day">
+      7
+    </div>
+  </dib>
 
-    <tbody>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
 </div>

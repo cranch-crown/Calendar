@@ -1,0 +1,18 @@
+
+.calendar {
+}
+
+.week {
+  width: 700px;
+  padding: 0 10px;
+  font-size: 0;
+}
+
+.day {
+  display: inline-block;
+  font-size: 1.0rem;
+  width: 90px;
+}
+.day + .day {
+  border-left: 1px solid #000;
+}
