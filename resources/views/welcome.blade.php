@@ -18,9 +18,12 @@
     </a>
   </div>
 
-  <!--テスト用ログアウトボタン-->
 
-
+  <li class="btn-group">
+    <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    ドロップダウンテスト
+    </button>
+  </div>
 
 </div>
 

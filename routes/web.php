@@ -20,6 +20,7 @@ Route::post('/save-schedule', 'CalendarController@save_schedule');
 
 Route::get('/register', 'CalendarController@register');
 Route::get('/login', 'CalendarController@login');
+Route::get('/logout', 'CalendarController@logout');
 
 Route::get('/welcome', 'CalendarController@welcome');
 
