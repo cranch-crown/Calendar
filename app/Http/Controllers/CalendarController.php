@@ -19,8 +19,11 @@ class CalendarController extends Controller
 
   public function index() {
     if(Auth::check()) {
-      $schedules = Schedule::orderBy('schedule_time', 'asc')->get();
-      return view('daily', ['schedules' => $schedules]);
+      /*$schedules = Schedule::orderBy('schedule_time', 'asc')->get();
+      return view('daily', ['schedules' => $schedules]);*/
+      $dt = Carbon::now();
+      /*viewの選択 ユーザー設定反映のタイミング*/
+      return redirect('/'.session('display_select', 'month').'/'.session('display_date', $dt->timestamp));
     }
     return view('welcome');
   }
@@ -40,7 +43,9 @@ class CalendarController extends Controller
     return view('welcome');
   }
 
-
+  public function developMode() {
+    return view('devView');
+  }
 
   public function make_schedule() {
     return view('make_schedule');

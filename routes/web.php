@@ -11,7 +11,7 @@
 |
 */
 
-
+/*トップページアクセス*/
 Route::get('/', 'CalendarController@index');
 
 Route::post('/make-schedule', 'CalendarController@make_schedule');
@@ -24,13 +24,18 @@ Route::get('/logout', 'CalendarController@logout');
 
 Route::get('/welcome', 'CalendarController@welcome');
 
-/*Route::post('');*/
+Route::get('/dev', 'CalendarController@developMode');
+
+
+/*Route::post('/year');*/
+Route::get('/month/{request_date}', 'GetViewdataController@month');
+/*Route::post('/week');*/
+/*Route::post('/day');*/
+/*Route::post('/list');*/
 
 Auth::routes();
 
 /*Route::get('/home', 'HomeController@index')->name('home');*/
-
-
 
 /*
 ログイン直後
