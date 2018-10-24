@@ -29,27 +29,42 @@ class GetViewdataController extends Controller
     $end_day = $this->getEndDay($dt->copy());
 
     $schedules = Schedule::where([
-      ['schedule_time', '>=', $first_day],
-      ['schedule_time', '<', $end_day]
-    ])->orderBy('schedule_time', 'asc')->get();
+      ['start_date', '>=', $first_day],
+      ['start_date', '<', $end_day]
+    ])->orderBy('start_date', 'asc')->get();
 
-    for($i=0; $i < $first_day->diffInDays($end_day); $i++){
+    for ($i=0; $i < $first_day->diffInDays($end_day); $i++){
       $schedule_count[$i] = 0;
       $date[$i] = $first_day->copy()->addDay($i)->day;
     }
 
-    foreach ($schedules as $day){
-      $schedule_count[$first_day->diffInDays($day->schedule_time)]++;
+    $list_time = array();
+    $list_item = array();
+    $list_location = array();
+    $list_description = array();
+
+    foreach ($schedules as $data){
+      $schedule_count[$first_day->diffInDays($data->start_date)]++;
+      if ($first_day->diffInDays($data->start_date) === $first_day->diffInDays($dt)){
+        $list_time[] = $data->start_date->format('H:i');
+        $list_item[] = $data->schedule_item;
+        $list_location[] = $data->location;
+        $list_description[] = $data->description;
+      }
     }
 
     return view('monthly', [
-      'schedules' => $schedules,
-      'date' => $date,
+      'timestamp' => $request_date,
+      'calendar_date' => $date,
       'schedule_count' => $schedule_count,
       'display_year' => $dt->year,
       'display_month' => $dt->month,
       'display_day' => $dt->day,
-      'calendar_first_day' => $first_day,
-      'total_days' => $first_day->diffInDays($end_day),]);
+      'total_days' => $first_day->diffInDays($end_day),
+      'pointday' => $first_day->diffInDays($dt),
+      'list_time' => $list_time,
+      'list_item' => $list_item,
+      'list_location' => $list_location,
+      'list_description' => $list_description]);
   }
 }

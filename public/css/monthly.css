@@ -1,13 +1,27 @@
+/*幅設定*/
+.calendar-header,
+.calendar-week,
+.topbar,
+.calendar,
+.schedulelist {
+  width: 100%;
+}
 
-/*全体*/
+/*カレンダーのヘッダデザイン*/
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 20px 5px;
+}
+
+/*カレンダー余白*/
 .calendar {
-  margin: 5px 20px 5px 20px;
+  padding: 5px 20px 5px;
 }
 
 /*カレンダーデザイン*/
 .calendar-week,
 .topbar {
-  width: 100%;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 }
@@ -18,7 +32,9 @@
 .calendar-week {
   height: 100px;
 }
-
+.daybox {
+  padding: 5px;
+}
 
 
 /*枠線制御*/
@@ -32,4 +48,23 @@
 }
 .daybox {
   border-right: 1px solid #bbb;
+}
+
+
+/*予定リスト部分*/
+.schedulelist {
+  padding: 20px 20px 10px;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.list-top {
+  display: flex;
+  justify-content: space-around;
+}
+.item-time {
+  display: block;
 }

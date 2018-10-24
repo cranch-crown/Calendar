@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>カレンダーアプリケーション -べーた-</title>
+    <title>カレンダーアプリケーション -開発版-</title>
 
     <!-- Styles -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -16,9 +16,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/reboot.css') }}">
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../css/reboot.css">
-
 </head>
+
 <body>
     <!-- Bootstrap javascript読み込み -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

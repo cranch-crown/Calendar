@@ -10,10 +10,10 @@
   <div class="panel-body">
     このアプリケーションは製作者がLavel習得のため開発をしているカレンダーアプリケーションです。
     下記ボタンから新規登録、もしくはログインしてお使いください。
-    <a type="button" class="btn btn-primary btn-block" href="{{ url('/register') }}" role="button">
+    <a class="btn btn-primary btn-block" href="{{ url('/register') }}" role="button">
       新規登録
     </a>
-    <a type="button" class="btn btn-outline-primary btn-block" href="{{ url('/login') }}" role="button">
+    <a class="btn btn-outline-primary btn-block" href="{{ url('/login') }}" role="button">
       ログイン
     </a>
   </div>
