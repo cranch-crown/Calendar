@@ -7,7 +7,7 @@
 /*カレンダーデザイン*/
 .calendar-week,
 .topbar {
-  width: 100%;
+  width: 100px;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 }
