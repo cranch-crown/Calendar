@@ -23,7 +23,7 @@ class CalendarController extends Controller
       return view('daily', ['schedules' => $schedules]);*/
       $dt = Carbon::now();
       /*viewの選択 ユーザー設定反映のタイミング*/
-      return redirect('/'.session('display_select', 'month').'/'.session('display_date', $dt->timestamp));
+      return redirect('/month/'.$dt->timestamp);
     }
     return view('welcome');
   }

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class GetViewdataController extends Controller
 {
+
   private function getStartDay($dt){
     $dt = $dt->startOfMonth();
     while($dt->dayOfWeek != 0)
@@ -35,36 +36,29 @@ class GetViewdataController extends Controller
 
     for ($i=0; $i < $first_day->diffInDays($end_day); $i++){
       $schedule_count[$i] = 0;
-      $date[$i] = $first_day->copy()->addDay($i)->day;
+      $date[$i] = $first_day->copy()->addDay($i)->day == 1?
+      $first_day->copy()->addDay($i)->format('m月d日'):
+      $first_day->copy()->addDay($i)->day;
     }
 
-    $list_time = array();
-    $list_item = array();
-    $list_location = array();
-    $list_description = array();
-
+    $list = array();
     foreach ($schedules as $data){
-      $schedule_count[$first_day->diffInDays($data->start_date)]++;
-      if ($first_day->diffInDays($data->start_date) === $first_day->diffInDays($dt)){
-        $list_time[] = $data->start_date->format('H:i');
-        $list_item[] = $data->schedule_item;
-        $list_location[] = $data->location;
-        $list_description[] = $data->description;
+      $schedule_count[Carbon::parse($data->start_date)->diffInDays($first_day)]++;
+      if (Carbon::parse($data->start_date)->diffInDays($first_day) == $first_day->diffInDays($dt)){
+        $list['time'][] = Carbon::parse($data->start_date)->format('H:i');
+        $list['item'][] = $data->schedule_item;
+        $list['location'][] = $data->location;
+        $list['description'][] = $data->description;
       }
     }
+    session(['select_view' => 'month', 'timestamp' => $request_date]);
 
     return view('monthly', [
-      'timestamp' => $request_date,
+      'request_dt' => $request_date,
       'calendar_date' => $date,
       'schedule_count' => $schedule_count,
-      'display_year' => $dt->year,
-      'display_month' => $dt->month,
-      'display_day' => $dt->day,
       'total_days' => $first_day->diffInDays($end_day),
       'pointday' => $first_day->diffInDays($dt),
-      'list_time' => $list_time,
-      'list_item' => $list_item,
-      'list_location' => $list_location,
-      'list_description' => $list_description]);
+      'list' => $list ]);
   }
 }

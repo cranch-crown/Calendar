@@ -6,6 +6,9 @@
 .schedulelist {
   width: 100%;
 }
+.kaihatsutyu {
+  display: none;
+}
 
 /*カレンダーのヘッダデザイン*/
 .calendar-header {

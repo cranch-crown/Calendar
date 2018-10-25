@@ -33,6 +33,10 @@ Route::get('/month/{request_date}', 'GetViewdataController@month');
 /*Route::post('/day');*/
 /*Route::post('/list');*/
 
+Route::post('/makeschedule/{view}/{dt}', 'AddScheduleController@index');
+
+Route::post('/save-schedule', 'AddScheduleController@save');
+
 Auth::routes();
 
 /*Route::get('/home', 'HomeController@index')->name('home');*/
