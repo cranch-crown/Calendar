@@ -12,30 +12,21 @@ use Carbon\Carbon;
   <!--カレンダーのヘッダ-->
   <div class="calendar-header">
     <h2 class="display_month">
-      {{ Carbon::createFromTimestamp("$request_dt")->format("Y") }}年{{ Carbon::createFromTimestamp("$request_dt")->format("m") }}月
+      {{ Carbon::createFromTimestamp("$dt_request")->format("Y") }}年
+      {{ Carbon::createFromTimestamp("$dt_request")->format("m") }}月
     </h2>
 
     <!--ボタンツールバー-->
     <div class="headbar_buttons">
       <div class="btn-toolbar" role="toolbar" aria-label="カレンダーのボタン群">
         <div class="btn-group mr-2" role="group" aria-label="先月次月">
-          <form action="{{ url('/submonth/.$request_timestamp') }}" method="POST">
-            {{ csrf_field() }}
-            <button type="submit" class="btn btn-outline-secondary"><</button>
-            <input type="hidden" name="">
-          </form>
-          <form action="{{ url('/addmonth') }}" method="POST">
-            {{ csrf_field() }}
-            <button type="submit" class="btn btn-outline-secondary">></button>
-          </form>
+            <a class="btn btn-outline-secondary" href="{{ url('/back_month') }}" role="button"><</a>
+            <a class="btn btn-outline-secondary" href="{{ url('/advance_month') }}" role="button">></a>
         </div>
         <div class="btn-group mr-2" role="group" aria-label="今日">
-          <form action="{{ url('') }}" method="POST">
-            {{ csrf_field() }}
-            <button type="submit" class="btn btn-outline-secondary">今日</button>
-          </form>
+          <a class="btn btn-outline-secondary" href="" role="button">今日</a>
         </div>
-        <!-- 実装予定機能
+        <!-- 実装予定
         <div class="btn-group mr-2" role="group" aria-label="モード変更">
           <form action="{{ url('') }}" method="POST">
             {{ csrf_field() }}</form>
@@ -48,7 +39,6 @@ use Carbon\Carbon;
             <button type="submit" class="btn btn-outline-secondary">日</button>
           </form>
         </div>
-        -->
 
         <div class="btn-group" role="group" aria-label="リスト表示ボタン">
           <form action="{{ url('') }}" method="POST">
@@ -56,6 +46,7 @@ use Carbon\Carbon;
             <button type="submit" class="btn btn-outline-secondary">予定リスト</button>
           </form>
         </div>
+        -->
       </div>
     </div>
   </div>
@@ -77,11 +68,11 @@ use Carbon\Carbon;
         @for($x=0; $x < 7;$x++)
           <div class="daybox">
             <div class="daybox-date">
-              <a href="#">{{ $calendar_date[$x+($y*7)] }}</a>
+              <a href="{{ url('/dayrequest/'.(($y*7)+$x)) }}">{{ $calendar_date[($y*7)+$x] }}</a>
             </div>
-            @if($schedule_count[$x+($y*7)] != 0)
+            @if($schedule_count[($y*7)+$x] != 0)
               <div class="daybox-task">
-                {{ $schedule_count[$x+($y*7)] }}件の予定
+                {{ $schedule_count[($y*7)+$x] }}件の予定
               </div>
             @endif
           </div>
@@ -95,23 +86,20 @@ use Carbon\Carbon;
   <div class="schedulelist">
     <div class="list-header">
       <h3>
-        {{ Carbon::createFromTimestamp("$request_dt")->format("m") }}
-        /{{ Carbon::createFromTimestamp("$request_dt")->format("d") }}の予定
+        {{ Carbon::createFromTimestamp("$dt_request")->format("m") }}
+        /{{ Carbon::createFromTimestamp("$dt_request")->format("d") }}の予定
       </h3>
-        <form action="{{ url('/makeschedule/month/'.$request_dt) }}" method="POST">
-          {{ csrf_field() }}
-          <button type="submit" class="btn btn-outline-dark">予定を追加</button>
-        </form>
+      <a class="btn btn-outline-dark" href="{{ url('/makeschedule/month/'.$dt_request) }}" role="button">予定を追加</a>
     </div>
     @for($i=0; $i < $schedule_count[$pointday]; $i++)
       <a class="list-item">
         <div class="item-top">
-          <h4 class="item-time">{{ $list['time'][$i] }}</h4>
-          <div class="item-name">{{ $list['item'][$i] }}</div>
+          <h4 class="item-time">{{ $list["time"][$i] }}</h4>
+          <div class="item-name">{{ $list["item"][$i] }}</div>
         </div>
         <div class="item-bottom">
-          <div class="item-location">場所：{{ $list['location'][$i] }}</div>
-          <div class="item-description">{{ $list['description'][$i] }}
+          <div class="item-location">場所：{{ $list["location"][$i] }}</div>
+          <div class="item-description">{{ $list["description"][$i] }}
           </div>
         </div>
       </a>

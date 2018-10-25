@@ -19,50 +19,49 @@ class GetViewdataController extends Controller
   }
   private function getEndDay($dt){
     $dt = $dt->endOfMonth();
-    while($dt->dayOfWeek != 0)
+    while($dt->dayOfWeek != 6)
       $dt = $dt->addDay();
-    return $dt;
+    return $dt->addDay();
   }
 
   public function month($request_date){
     $dt = [
       "request" => Carbon::createFromTimestamp($request_date),
-      "first_day" => $this->getStartDay(Carbon::createFromTimestamp($request_date)->copy()),
-      "end_day" => $this->getEndDay(Carbon::createFromTimestamp($request_date)->copy()) ];
-/*    $dt['requst'] = Carbon::createFromTimestamp($request_date);
-    $dt["first_day"] = $this->getStartDay($dt['request']->copy());
-    $dt["end_day"] = $this->getEndDay($dt['request']->copy());*/
+      "calendar_start" => $this->getStartDay(Carbon::createFromTimestamp($request_date)->copy()),
+      "calendar_end" => $this->getEndDay(Carbon::createFromTimestamp($request_date)->copy()) ];
 
     $schedules = Schedule::where([
-      ['start_date', '>=', $dt["first_day"] ],
-      ['start_date', '<', $dt["end_day"] ]
+      ['start_date', '>=', $dt["calendar_start"] ],
+      ['start_date', '<', $dt["calendar_end"] ]
     ])->orderBy('start_date', 'asc')->get();
 
-    for ($i=0; $i < $dt["first_day"]->diffInDays($dt["end_day"]); $i++){
+    for ($i=0; $i < $dt["calendar_start"]->diffInDays($dt["calendar_end"]); $i++){
       $schedule_count[$i] = 0;
-      $date[$i] = $dt["first_day"]->copy()->addDay($i)->day == 1?
-      $dt["first_day"]->copy()->addDay($i)->format('m月d日'):
-      $dt["first_day"]->copy()->addDay($i)->day;
+      $date[$i] = $dt["calendar_start"]->copy()->addDay($i)->day == 1?
+      $dt["calendar_start"]->copy()->addDay($i)->format('m月d日'):
+      $dt["calendar_start"]->copy()->addDay($i)->day;
     }
 
     $list = array();
     foreach ($schedules as $data){
-      $schedule_count[Carbon::parse($data->start_date)->diffInDays($dt["first_day"])]++;
-      if ( $dt["first_day"]->diffInDays(Carbon::parse($data->start_date))  == $dt["first_day"]->diffInDays($dt["request"]) ){
+      $schedule_count[Carbon::parse($data->start_date)->diffInDays($dt["calendar_start"])]++;
+      if ( $dt["calendar_start"]->diffInDays(Carbon::parse($data->start_date)) ==
+        $dt["calendar_start"]->diffInDays($dt["request"]) ){
         $list["time"][] = Carbon::parse($data->start_date)->format('H:i');
         $list["item"][] = $data->schedule_item;
         $list["location"][] = $data->location;
         $list["description"][] = $data->description;
       }
     }
-    session(['select_view' => 'month', 'timestamp' => $request_date]);
+    session(['select_view' => 'month', 'timestamp' => $request_date, 'calendar_start' => $dt["calendar_start"]->timestamp]);
 
     return view('monthly', [
-      'request_dt' => $request_date,
+      'dt_request' => $request_date,
+      'dt_calendarstart' => $dt["calendar_start"]->timestamp,
       'calendar_date' => $date,
       'schedule_count' => $schedule_count,
-      'total_days' => $dt["first_day"]->diffInDays($dt["end_day"]),
-      'pointday' => $dt["first_day"]->diffInDays($dt["request"]),
+      'total_days' => $dt["calendar_start"]->diffInDays($dt["calendar_end"]),
+      'pointday' => $dt["calendar_start"]->diffInDays($dt["request"]),
       'list' => $list ]);
   }
 }

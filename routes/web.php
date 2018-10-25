@@ -33,8 +33,12 @@ Route::get('/month/{request_date}', 'GetViewdataController@month');
 /*Route::post('/day');*/
 /*Route::post('/list');*/
 
-Route::post('/makeschedule/{view}/{dt}', 'AddScheduleController@index');
+Route::get('/makeschedule/{view}/{dt}', 'AddScheduleController@index');
 Route::post('/save-schedule', 'AddScheduleController@save');
+
+Route::get('/back_month', 'DateMoveController@submonth');
+Route::get('/advance_month', 'DateMoveController@addmonth');
+Route::get('/dayrequest/{i}', 'DateMoveController@dayrequest');
 
 Auth::routes();
 
