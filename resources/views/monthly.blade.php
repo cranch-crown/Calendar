@@ -93,9 +93,14 @@
           <input type="hidden" name="id" value="{{$id[$i]}}">
           {{ csrf_field() }}
         </form>
-        <div class="item-location">@if(!$list["location"]==="")場所：{{ $list["location"][$i] }}@endif</div>
-        <div class="item-description">@if(!$list["description"]===""){{ $list["description"][$i] }}@endif</div>
-        <button type="button" class="btn btn-outline-danger d-button">削除</button>
+        <div class="item-location">場所：{{ $list["location"][$i] }}</div>
+        <div class="item-description">{{ $list["description"][$i] }}</div>
+        <form action="{{url('/delete')}}" method="POST">
+          <button type="submit" class="btn btn-outline-danger d-button">削除</button>
+          <input type="hidden" name="id" value="{{$id[$i]}}">
+          {{ csrf_field() }}
+          {{ method_field('DELETE') }}
+        </form>
       </div>
     @endfor
   </div>

@@ -7,7 +7,7 @@
 <div class="container">
   <!-- 予定入力フォーム -->
   <div class="panel-body">
-    <form action="{{ url('/save-schedule') }}" method="POST" class="form-horizontal">
+    <form action="{{ url('/schedule/save') }}" method="POST" class="form-horizontal">
 
       <!--スケジュールフォーム-->
       <div class="form-group">
@@ -20,7 +20,7 @@
         <label for="date">予定時間</label>
         <div class="form-inline">
 
-          <input type="datetime-local" id="start_date" name="start_date" class="form-control  " autocomplete="on">～
+          <input type="datetime-local" id="start_date" name="start_date" class="form-control" autocomplete="on" value="{{ $now }}">～
           <input type="datetime-local" id="end_date" name="end_date" class="form-control" >
         </div>
       </div>
@@ -36,9 +36,9 @@
       </div>
 
       <div class="container" style="display:flex; align-items:center;">
-      <button type="submit" class="btn btn-outline-dark mr-4">保存</button>
-      {{ csrf_field() }}
-      <a href="{{ url('/returnview') }}">カレンダーへ戻る</a>
+        <button type="submit" class="btn btn-outline-dark mr-4">保存</button>
+        {{ csrf_field() }}
+        <a href="{{ url('/returnview') }}">カレンダーへ戻る</a>
       </div>
     </form>
   </div>

@@ -7,7 +7,7 @@
 <div class="container">
   <!-- 予定入力フォーム -->
   <div class="panel-body">
-    <form action="{{ url('save-schedule') }}" method="POST" class="form-horizontal">
+    <form action="{{ url('/schedule/update') }}" method="POST" class="form-horizontal">
 
       <!--スケジュールフォーム-->
       <div class="form-group">
@@ -36,9 +36,10 @@
       </div>
 
       <div class="container" style="display:flex; align-items:center;">
-      <button type="submit" class="btn btn-outline-dark">保存</button>
+      <button type="submit" class="btn btn-outline-dark mr-4">保存</button>
+      <input type="hidden" name="id" value="{{ $schedule->id}}">
       {{ csrf_field() }}
-      <a href="#">戻る</a>
+      <a href="{{ url('/returnview') }}">カレンダーへ戻る</a>
       </div>
 
     </form>
