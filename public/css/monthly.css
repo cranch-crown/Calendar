@@ -6,9 +6,6 @@
 .schedulelist {
   width: 100%;
 }
-.kaihatsutyu {
-  display: none;
-}
 
 /*カレンダーのヘッダデザイン*/
 .calendar-header {
@@ -38,7 +35,9 @@
 .daybox {
   padding: 5px;
 }
-
+.daybox-task {
+  font-size: 0.9rem;
+}
 
 /*枠線制御*/
 .topbar {
@@ -56,18 +55,23 @@
 
 /*予定リスト部分*/
 .schedulelist {
-  padding: 20px 20px 10px;
+  padding: 20px 50px 10px;
 }
 
 .list-header {
   display: flex;
   justify-content: space-between;
+  margin-bottom:20px;
 }
 
-.list-top {
-  display: flex;
-  justify-content: space-around;
+.list-container {
+  display: grid;
+  grid-template-columns:1fr 2fr 100px;
+  grid-template-rows:1fr 1fr;
+  padding: 10px 50px;
 }
+
 .item-time {
-  display: block;
+  font-size: 1.2rem;
+  font-weight: 500;
 }

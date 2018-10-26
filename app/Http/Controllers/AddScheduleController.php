@@ -12,7 +12,7 @@ class AddScheduleController extends Controller
 {
   public function index($view,$dt) {
     session(['select_view' => $view, 'timestamp' => $dt]);
-    return view('make_schedule');
+    return view('schedule_editor');
   }
 
   public function save(Request $request) {
@@ -26,7 +26,7 @@ class AddScheduleController extends Controller
       ->withErrors($validator);
     }
     $schedules = new Schedule;
-    $schedules->user_id = Auth::id();
+    $schedules->user_id = Auth::user()->id;
     $schedules->schedule_item = $request->schedule_item;
     $schedules->start_date = $request->start_date;
     $schedules->end_date = $request->end_date;
@@ -34,5 +34,14 @@ class AddScheduleController extends Controller
     $schedules->description = $request->description;
     $schedules->save();
     return redirect('/'.session('select_view').'/'.session('timestamp'));
+  }
+
+  public function returnview(){
+    return redirect('/'.session('select_view').'/'.session('timestamp'));
+  }
+
+  public function editSchedule(Request $request) {
+    $schedules = Schedule::where('id', '=', $request->id)->first();
+    return view('schedule_update', ['schedule' => $schedules]);
   }
 }

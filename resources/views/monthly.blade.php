@@ -1,19 +1,13 @@
 @extends('layouts.app')
 @section('content')
 
-@php
-use Carbon\Carbon;
-@endphp
-
-
 <link rel="stylesheet" type="text/css" href="{{ asset('/css/monthly.css') }}">
 
-<main>
+<section>
   <!--カレンダーのヘッダ-->
   <div class="calendar-header">
     <h2 class="display_month">
-      {{ Carbon::createFromTimestamp("$dt_request")->format("Y") }}年
-      {{ Carbon::createFromTimestamp("$dt_request")->format("m") }}月
+      {{ $displaydt["year"] }}年{{ $displaydt["month"] }}月
     </h2>
 
     <!--ボタンツールバー-->
@@ -24,7 +18,7 @@ use Carbon\Carbon;
             <a class="btn btn-outline-secondary" href="{{ url('/advance_month') }}" role="button">></a>
         </div>
         <div class="btn-group mr-2" role="group" aria-label="今日">
-          <a class="btn btn-outline-secondary" href="" role="button">今日</a>
+          <a class="btn btn-outline-secondary" href="{{ url('/request/month-today') }}" role="button">今日</a>
         </div>
         <!-- 実装予定
         <div class="btn-group mr-2" role="group" aria-label="モード変更">
@@ -85,26 +79,26 @@ use Carbon\Carbon;
   <!--予定リスト-->
   <div class="schedulelist">
     <div class="list-header">
-      <h3>
-        {{ Carbon::createFromTimestamp("$dt_request")->format("m") }}
-        /{{ Carbon::createFromTimestamp("$dt_request")->format("d") }}の予定
-      </h3>
+      <h4>
+        {{ $displaydt["month"] }}/{{ $displaydt["day"] }}の予定
+      </h4>
       <a class="btn btn-outline-dark" href="{{ url('/makeschedule/month/'.$dt_request) }}" role="button">予定を追加</a>
     </div>
     @for($i=0; $i < $schedule_count[$pointday]; $i++)
-      <a class="list-item">
-        <div class="item-top">
-          <h4 class="item-time">{{ $list["time"][$i] }}</h4>
-          <div class="item-name">{{ $list["item"][$i] }}</div>
-        </div>
-        <div class="item-bottom">
-          <div class="item-location">場所：{{ $list["location"][$i] }}</div>
-          <div class="item-description">{{ $list["description"][$i] }}
-          </div>
-        </div>
-      </a>
+      <div class="list-container">
+        <div class="item-time">{{ $list["time"][$i] }}</div>
+        <div class="item-name">{{ $list["item"][$i] }}</div>
+        <form action="{{ url('/schedule/edit') }}" method="POST">
+          <button type="submit" class="btn btn-outline-success e-button">編集</button>
+          <input type="hidden" name="id" value="{{$id[$i]}}">
+          {{ csrf_field() }}
+        </form>
+        <div class="item-location">@if(!$list["location"]==="")場所：{{ $list["location"][$i] }}@endif</div>
+        <div class="item-description">@if(!$list["description"]===""){{ $list["description"][$i] }}@endif</div>
+        <button type="button" class="btn btn-outline-danger d-button">削除</button>
+      </div>
     @endfor
   </div>
 
-</main>
+</section>
 @endsection

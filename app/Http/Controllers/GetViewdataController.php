@@ -32,7 +32,8 @@ class GetViewdataController extends Controller
 
     $schedules = Schedule::where([
       ['start_date', '>=', $dt["calendar_start"] ],
-      ['start_date', '<', $dt["calendar_end"] ]
+      ['start_date', '<', $dt["calendar_end"] ],
+      ['user_id', Auth::user()->id]
     ])->orderBy('start_date', 'asc')->get();
 
     for ($i=0; $i < $dt["calendar_start"]->diffInDays($dt["calendar_end"]); $i++){
@@ -43,10 +44,12 @@ class GetViewdataController extends Controller
     }
 
     $list = array();
+    $id = array();
     foreach ($schedules as $data){
       $schedule_count[Carbon::parse($data->start_date)->diffInDays($dt["calendar_start"])]++;
       if ( $dt["calendar_start"]->diffInDays(Carbon::parse($data->start_date)) ==
         $dt["calendar_start"]->diffInDays($dt["request"]) ){
+        $id[] = $data->id;
         $list["time"][] = Carbon::parse($data->start_date)->format('H:i');
         $list["item"][] = $data->schedule_item;
         $list["location"][] = $data->location;
@@ -55,13 +58,20 @@ class GetViewdataController extends Controller
     }
     session(['select_view' => 'month', 'timestamp' => $request_date, 'calendar_start' => $dt["calendar_start"]->timestamp]);
 
+    $displaydt = [
+      'year' => $dt["request"]->year,
+      'month' => $dt["request"]->month,
+      'day' => $dt["request"]->day];
+
     return view('monthly', [
       'dt_request' => $request_date,
+      'displaydt' => $displaydt,
       'dt_calendarstart' => $dt["calendar_start"]->timestamp,
       'calendar_date' => $date,
       'schedule_count' => $schedule_count,
       'total_days' => $dt["calendar_start"]->diffInDays($dt["calendar_end"]),
       'pointday' => $dt["calendar_start"]->diffInDays($dt["request"]),
+      'id' => $id,
       'list' => $list ]);
   }
 }

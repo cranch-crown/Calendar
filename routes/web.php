@@ -23,7 +23,6 @@ Route::get('/login', 'CalendarController@login');
 Route::get('/logout', 'CalendarController@logout');
 
 Route::get('/welcome', 'CalendarController@welcome');
-
 Route::get('/dev', 'CalendarController@developMode');
 
 
@@ -35,10 +34,15 @@ Route::get('/month/{request_date}', 'GetViewdataController@month');
 
 Route::get('/makeschedule/{view}/{dt}', 'AddScheduleController@index');
 Route::post('/save-schedule', 'AddScheduleController@save');
+Route::post('/schedule/edit', 'AddScheduleController@editSchedule');
+Route::get('/returnview', 'AddScheduleController@returnview');
 
 Route::get('/back_month', 'DateMoveController@submonth');
 Route::get('/advance_month', 'DateMoveController@addmonth');
+Route::get('/request/month-today', 'DateMoveController@today');
+
 Route::get('/dayrequest/{i}', 'DateMoveController@dayrequest');
+
 
 Auth::routes();
 

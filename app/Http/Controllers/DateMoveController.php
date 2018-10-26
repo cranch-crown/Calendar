@@ -22,4 +22,8 @@ class DateMoveController extends Controller
     return redirect('/month/'.Carbon::createFromTimestamp(session('timestamp'))->addMonthsNoOverflow(1)->timestamp);
   }
 
+  public function today(){
+    return redirect('/month/'.Carbon::now()->timestamp);
+  }
+
 }
