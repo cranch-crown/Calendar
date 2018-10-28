@@ -15,13 +15,16 @@ class AddScheduleController extends Controller
     return view('schedule_editor', [
       'now' => Carbon::createFromTimestamp(
         session('timestamp'))->format('Y-m-d\T').
-        Carbon::now()->format('H:i:s') ]);
+        Carbon::now()->format('H:i') ]);
   }
 
   public function save(Request $request) {
     $validator = Validator::make($request->all(),[
       'schedule_item' => 'required | max:300',
-      'start_date' => 'required']);
+      'start_date' => 'required',
+      'location' => 'max:300',
+      'description' => 'max:300',
+]);
 
     if($validator->fails()) {
       return redirect('/makeschedule/'.session('select_view').'/'.session('timestamp'))

@@ -20,7 +20,7 @@
         <div class="btn-group mr-2" role="group" aria-label="今日">
           <a class="btn btn-outline-secondary" href="{{ url('/request/month-today') }}" role="button">今日</a>
         </div>
-        <!-- 実装予定
+        <!-- 実装予定機能
         <div class="btn-group mr-2" role="group" aria-label="モード変更">
           <form action="{{ url('') }}" method="POST">
             {{ csrf_field() }}</form>
