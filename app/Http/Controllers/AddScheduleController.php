@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class AddScheduleController extends Controller
 {
+
+  public function __construct() {
+    $this->middleware('auth');
+  }
+
   public function newschedule($view,$dt) {
     session(['select_view' => $view, 'timestamp' => $dt]);
     return view('schedule_editor', [

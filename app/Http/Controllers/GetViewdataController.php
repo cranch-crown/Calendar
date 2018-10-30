@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Auth;
 class GetViewdataController extends Controller
 {
 
+  public function __construct() {
+    $this->middleware('auth');
+  }
+
   private function getStartDay($dt){
     $dt = $dt->startOfMonth();
     while($dt->dayOfWeek != 0)
