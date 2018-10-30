@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class DateMoveController extends Controller
 {
+
+  public function __construct() {
+    $this->middleware('auth');
+  }
+
   public function dayrequest($i){
     return redirect('/'.session('select_view').'/'.Carbon::
       createFromTimestamp(session('calendar_start'))->addDay($i)->timestamp);
