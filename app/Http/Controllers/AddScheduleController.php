@@ -77,10 +77,10 @@ class AddScheduleController extends Controller
         'location' => 'max:300',
         'description' => 'max:300']);
 
-    if($validator->fails()) {
-      return redirect('/schedule/edit')
-      ->withInput()
-      ->withErrors($validator);
+    if ($validator->fails()) {
+        return redirect('/schedule/edit')
+        ->withInput()
+        ->withErrors($validator);
     }
 
     $schedules = Schedule::find($request->id);
