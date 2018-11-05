@@ -20,8 +20,10 @@
         <label for="date">予定時間</label>
         <div class="form-inline">
 
-          <input type="datetime-local" id="start_date" name="start_date" class="form-control  " autocomplete="on" value="{{ $schedule->start_date }}">～
-          <input type="datetime-local" id="end_date" name="end_date" class="form-control" value="{{ $schedule->end_date }}">
+          <input type="date" name="start_date" class="form-control" value="{{ $value_start_date }}">
+          <input type="time" name="start_time" class="form-control" value="{{ $value_start_time }}">～
+          <input type="date" name="end_date" class="form-control" value="{{ $value_end_date }}">
+          <input type="time" name="end_time" class="form-control" value="{{ $value_end_time }}">(入力必須)
         </div>
       </div>
 
