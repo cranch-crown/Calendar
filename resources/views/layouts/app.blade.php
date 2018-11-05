@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>カレンダーアプリケーション -開発版-</title>
+    <title>カレンダーアプリケーション -ver1.0.2-</title>
 
     <!-- Styles -->
     <script src="{{ asset('js/app.js') }}" defer></script>
