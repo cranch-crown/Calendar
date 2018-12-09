@@ -29,6 +29,7 @@ Route::get('/advance_month', 'DateMoveController@addmonth');
 Route::get('/request/month-today', 'DateMoveController@today');
 Route::get('/dayrequest/{i}', 'DateMoveController@dayrequest');
 
+Route::get('/demo_start', 'DemoUser@createDemouser');
 
 Auth::routes();
 
