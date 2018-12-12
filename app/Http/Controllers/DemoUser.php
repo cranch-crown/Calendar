@@ -13,7 +13,7 @@ class DemoUser extends Controller
   public function createDemouser() {
     $id = DB::table('users')->insertGetId([
       'name' => 'デモユーザー',
-      'email' => uniqid().'@test.com',
+      'email' => uniqid().'@example.test',
       'password' => bcrypt(uniqid()),
       'created_at' => Carbon::now(),
       'updated_at' => Carbon::now()
